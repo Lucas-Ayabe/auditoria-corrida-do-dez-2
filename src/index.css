@@ -1,0 +1,35 @@
+dt {
+  font-weight: bold;
+}
+
+.flow > * + * {
+  margin-top: 1em;
+}
+
+.report {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1em;
+}
+
+.report > div {
+  padding: 0.5em;
+  border: 1px solid rgb(0, 0, 0, 0.12);
+}
+
+@media screen and (max-width: 1024px) {
+  .report {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .report {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.comparative-table th,
+td {
+  white-space: nowrap;
+}

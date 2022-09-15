@@ -11,7 +11,7 @@ export const Layout = ({ children }: LayoutProps) => {
     <Bulma.Container>
       <Bulma.Columns>
         <Bulma.Columns.Column size="one-quarter">
-          <Bulma.Section>
+          <Bulma.Section style={{ paddingRight: 0 }}>
             <Navbar
               items={[
                 {

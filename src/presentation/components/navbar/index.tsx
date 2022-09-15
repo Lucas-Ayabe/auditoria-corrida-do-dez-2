@@ -13,19 +13,23 @@ export interface NavbarProps {
 
 export const Navbar = ({ items = [] }: NavbarProps) => {
   return (
-    <Bulma.Menu renderAs="nav">
-      <Bulma.Menu.List title="MENU">
-        {items.map((item, index) => (
-          <li key={item.to + index}>
-            <NavLink
-              to={item.to}
-              className={({ isActive }) => (isActive ? "is-active" : undefined)}
-            >
-              {item.content}
-            </NavLink>
-          </li>
-        ))}
-      </Bulma.Menu.List>
-    </Bulma.Menu>
+    <Bulma.Box>
+      <Bulma.Menu renderAs="nav">
+        <Bulma.Menu.List title="MENU">
+          {items.map((item, index) => (
+            <li key={item.to + index}>
+              <NavLink
+                to={item.to}
+                className={({ isActive }) =>
+                  isActive ? "is-active" : undefined
+                }
+              >
+                {item.content}
+              </NavLink>
+            </li>
+          ))}
+        </Bulma.Menu.List>
+      </Bulma.Menu>
+    </Bulma.Box>
   );
 };

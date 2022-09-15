@@ -54,7 +54,7 @@ export const Products = () => {
         </Bulma.Box>
       </Bulma.Panel.Block>
 
-      <Bulma.Panel.Block>
+      <Bulma.Panel.Block display="block">
         <Bulma.Box shadowless>
           <Bulma.Heading renderAs="h2" size={5}>
             Detalhes Gerais

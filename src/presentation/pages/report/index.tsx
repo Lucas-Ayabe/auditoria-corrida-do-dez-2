@@ -15,6 +15,10 @@ export const Report = () => {
     <Page title="Relatório">
       <Bulma.Panel.Block display="block">
         <Bulma.Box shadowless>
+          <Bulma.Heading renderAs="h2" size={5}>
+            Informações
+          </Bulma.Heading>
+
           <ReportGrid
             items={[
               {

@@ -3,16 +3,22 @@ import {
   useDetailedProducts,
   useProductsCount,
   useStore,
+  useTotalCost,
 } from "../../../infrastructure/zustand";
-import { Page, ProductBox } from "../../components";
+import { formatToBrl, mapObject } from "../../../shared";
+import { Page, ProductBox, ReportGrid } from "../../components";
 import { useNumberField, useTextField } from "../../hooks";
 
 export const Products = () => {
   const products = useDetailedProducts();
   const totalProducts = useProductsCount();
-  const { addProduct, deleteProduct } = useStore();
+  const { addProduct, deleteProduct, expenses } = useStore();
+
   const nameField = useTextField();
   const producedAmountField = useNumberField();
+
+  const formattedExpanses = mapObject(formatToBrl, expenses);
+  const totalCost = formatToBrl(useTotalCost());
 
   return (
     <Page title="Produtos">
@@ -49,7 +55,40 @@ export const Products = () => {
       </Bulma.Panel.Block>
 
       <Bulma.Panel.Block>
-        <Bulma.Box shadowless>Total produzido: {totalProducts}</Bulma.Box>
+        <Bulma.Box shadowless>
+          <Bulma.Heading renderAs="h2" size={5}>
+            Detalhes Gerais
+          </Bulma.Heading>
+
+          <ReportGrid
+            items={[
+              {
+                label: "Quantidade",
+                value: totalProducts,
+              },
+              {
+                label: "Representação total",
+                value: `100%`,
+              },
+              {
+                label: "Matéria Prima",
+                value: formattedExpanses.feedstock,
+              },
+              {
+                label: "Gastos Gerais de Produção",
+                value: formattedExpanses.productionOverheads,
+              },
+              {
+                label: "Mão de Obra",
+                value: formattedExpanses.labor,
+              },
+              {
+                label: "Custo Total",
+                value: totalCost,
+              },
+            ]}
+          />
+        </Bulma.Box>
       </Bulma.Panel.Block>
 
       {products.map((product, index) => (

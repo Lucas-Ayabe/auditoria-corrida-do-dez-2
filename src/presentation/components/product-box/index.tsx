@@ -25,13 +25,17 @@ export const ProductBox = ({
           alignItems: "baseline",
         }}
       >
-        <Bulma.Heading renderAs="h3" size={4}>
+        <Bulma.Heading renderAs="h3" size={5}>
           {name}
         </Bulma.Heading>
         <Bulma.Button remove onClick={() => onDelete()}>
           Delete Product
         </Bulma.Button>
       </div>
+
+      <Bulma.Heading subtitle renderAs="h4" size={5}>
+        Detalhes de rateio
+      </Bulma.Heading>
 
       <ReportGrid
         items={[

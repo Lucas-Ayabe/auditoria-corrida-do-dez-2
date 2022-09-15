@@ -6,6 +6,11 @@ dt {
   margin-top: 1em;
 }
 
+.table-caption {
+  height: 0;
+  opacity: 0;
+}
+
 .report {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

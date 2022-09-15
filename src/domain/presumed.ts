@@ -18,9 +18,3 @@ export const irpj = (invoicing: Billing) => {
 };
 
 export const csll = compose(ninePercent, twelvePercent);
-
-export const totalValue = (invoicing: Billing) => {
-  return [pis, cofins, irpj, csll]
-    .map((calculate) => calculate(invoicing))
-    .reduce((x, y) => x + y, 0);
-};

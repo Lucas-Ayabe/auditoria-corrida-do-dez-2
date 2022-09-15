@@ -1,23 +1,9 @@
 import * as Bulma from "react-bulma-components";
+import { useTaxReport } from "../../../infrastructure/zustand";
 import { Page } from "../../components";
 
 export const CompareSystems = () => {
-  const viewModel = {
-    results: {
-      presumed: {
-        pis: { formated: "R$ 36.300,00" },
-        cofins: { formated: "R$ 167.200,00" },
-        icms: { formated: "R$ 980.000,00" },
-        total: { formated: "R$ 36.000,00" },
-      },
-      real: {
-        pis: { formated: "R$ 0,00 (A recolher: R$ 0,00)" },
-        cofins: { formated: "R$ 0,00 (A recolher: R$ 0,00)" },
-        icms: { formated: "R$ 0,00 (A recolher: R$ 0,00)" },
-        total: { formated: "R$ 0,00 (A recolher: R$ 0,00)" },
-      },
-    },
-  };
+  const taxReport = useTaxReport();
 
   return (
     <Page title="Comparar Sistemas">
@@ -26,7 +12,7 @@ export const CompareSystems = () => {
           <Bulma.Heading subtitle renderAs="h2" size={5}>
             O melhor sistema é o{" "}
             <Bulma.Heading renderAs="p" size={2}>
-              Presumido
+              {taxReport.bestOption === "presumed" ? "Presumido" : "Real"}
             </Bulma.Heading>
           </Bulma.Heading>
         </Bulma.Box>
@@ -34,13 +20,13 @@ export const CompareSystems = () => {
 
       <Bulma.Panel.Block display="block">
         <Bulma.Box shadowless>
-          <Bulma.Heading subtitle renderAs="h2" size={5}>
+          <Bulma.Heading renderAs="h2" size={5}>
             Detalhes
           </Bulma.Heading>
 
           <Bulma.Table.Container>
             <Bulma.Table size="fullwidth" className="comparative-table">
-              <caption style={{ opacity: 0, height: 0 }}>Detalhes</caption>
+              <caption className="table-caption">Detalhes</caption>
 
               <thead>
                 <tr>
@@ -53,33 +39,33 @@ export const CompareSystems = () => {
               <tbody>
                 <tr>
                   <th scope="row">PIS</th>
-                  <td>{viewModel.results.presumed.pis.formated}</td>
-                  <td>{viewModel.results.real.pis.formated}</td>
+                  <td>{taxReport.pis.presumed}</td>
+                  <td>{taxReport.pis.real}</td>
                 </tr>
                 <tr>
                   <th scope="row">COFINS</th>
-                  <td>{viewModel.results.presumed.cofins.formated}</td>
-                  <td>{viewModel.results.real.cofins.formated}</td>
-                </tr>
-                <tr>
-                  <th scope="row">ICMS</th>
-                  <td>{viewModel.results.presumed.icms.formated}</td>
-                  <td>{viewModel.results.real.icms.formated}</td>
+                  <td>{taxReport.cofins.presumed}</td>
+                  <td>{taxReport.cofins.real}</td>
                 </tr>
                 <tr>
                   <th scope="row">IRPJ</th>
-                  <td>{viewModel.results.presumed.icms.formated}</td>
-                  <td>{viewModel.results.real.icms.formated}</td>
+                  <td>{taxReport.irpj.presumed}</td>
+                  <td>{taxReport.irpj.real}</td>
                 </tr>
                 <tr>
                   <th scope="row">CSLL</th>
-                  <td>{viewModel.results.presumed.icms.formated}</td>
-                  <td>{viewModel.results.real.icms.formated}</td>
+                  <td>{taxReport.csll.presumed}</td>
+                  <td>{taxReport.csll.real}</td>
+                </tr>
+                <tr>
+                  <th scope="row">ICMS</th>
+                  <td>{taxReport.icms.presumed}</td>
+                  <td>{taxReport.icms.real}</td>
                 </tr>
                 <tr>
                   <th scope="row">TOTAL</th>
-                  <td>{viewModel.results.presumed.total.formated}</td>
-                  <td>{viewModel.results.real.total.formated}</td>
+                  <td>{taxReport.total.presumed}</td>
+                  <td>{taxReport.total.real}</td>
                 </tr>
               </tbody>
             </Bulma.Table>

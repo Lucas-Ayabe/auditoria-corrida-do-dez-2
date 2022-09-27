@@ -17,6 +17,10 @@ function App() {
           <Route path="/produtos" element={<Pages.Products />} />
           <Route path="/relatorio" element={<Pages.Report />} />
           <Route path="/comparar-sistemas" element={<Pages.CompareSystems />} />
+          <Route
+            path="/ajuste-patrimonial"
+            element={<Pages.EquityAdjustment />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>

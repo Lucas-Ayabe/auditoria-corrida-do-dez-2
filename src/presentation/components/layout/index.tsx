@@ -26,6 +26,10 @@ export const Layout = ({ children }: LayoutProps) => {
                   to: "/comparar-sistemas",
                   content: "Comparar Sistemas",
                 },
+                {
+                  to: "/ajuste-patrimonial",
+                  content: "Ajuste Patrimonial",
+                },
               ]}
             />
           </Bulma.Section>

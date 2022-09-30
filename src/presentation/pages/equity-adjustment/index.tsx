@@ -1,7 +1,14 @@
 import * as Bulma from "react-bulma-components";
-import { Page } from "../../components";
+import {
+  useDeprecationStore,
+  useVarlfReport,
+} from "../../../infrastructure/zustand";
+import { GrossRevenueFields, Page } from "../../components";
 
 export const EquityAdjustment = () => {
+  const deprecationStore = useDeprecationStore();
+  const varlfReport = useVarlfReport();
+
   return (
     <Page title="Sistema de Ajuste Patrimonial">
       <Bulma.Panel.Block display="block">
@@ -15,13 +22,28 @@ export const EquityAdjustment = () => {
               <Bulma.Form.Label title="Encargos sobre o valor de Receita Bruta">
                 ENC
               </Bulma.Form.Label>
-              <Bulma.Form.Input size="small" />
+              <Bulma.Form.Input
+                size="small"
+                value={deprecationStore.charges}
+                onChange={(event) =>
+                  deprecationStore.updateCharges(+event.target.value)
+                }
+              />
             </Bulma.Form.Control>
             <Bulma.Form.Control fullwidth>
               <Bulma.Form.Label title="Índice da Margem de Contribuição">
                 IMC
               </Bulma.Form.Label>
-              <Bulma.Form.Input size="small" type="number" />
+              <Bulma.Form.Input
+                size="small"
+                type="number"
+                value={deprecationStore.contributionMarginIndex}
+                onChange={(event) =>
+                  deprecationStore.updateContributionMarginIndex(
+                    +event.target.value
+                  )
+                }
+              />
             </Bulma.Form.Control>
           </Bulma.Form.Field>
 
@@ -41,17 +63,19 @@ export const EquityAdjustment = () => {
                 Receitas Brutas
               </Bulma.Heading>
 
-              <Bulma.Button onClick={() => null} color="primary">
+              <Bulma.Button
+                onClick={() => deprecationStore.addGrossRevenue("0")}
+                color="primary"
+              >
                 +
               </Bulma.Button>
             </Bulma.Block>
 
-            <Bulma.Form.Field>
-              <Bulma.Form.Control fullwidth>
-                <Bulma.Form.Label>Receita Bruta (Ano 1)</Bulma.Form.Label>
-                <Bulma.Form.Input size="small" />
-              </Bulma.Form.Control>
-            </Bulma.Form.Field>
+            <GrossRevenueFields
+              grossRevenues={deprecationStore.grossRevenues}
+              onChange={deprecationStore.updateGrossRevenue}
+              onDelete={deprecationStore.deleteGrossRevenue}
+            />
           </section>
         </Bulma.Box>
       </Bulma.Panel.Block>
@@ -72,32 +96,34 @@ export const EquityAdjustment = () => {
               </thead>
 
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>R$ 250.000,00</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>R$ 196.000,00</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>R$ 140.000,00</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>R$ 89.172,00</td>
-                </tr>
+                {varlfReport.details.map((detail) => (
+                  <tr key={detail.year}>
+                    <td>{detail.year}</td>
+                    <td>
+                      <strong>{detail.value.toString()}</strong>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
 
               <tfoot>
                 <tr>
                   <th scope="row">Total</th>
-                  <td>R$ 675.172,00</td>
+                  <td>
+                    <strong>{varlfReport.total.toString()}</strong>
+                  </td>
                 </tr>
               </tfoot>
             </Bulma.Table>
           </Bulma.Table.Container>
+        </Bulma.Box>
+      </Bulma.Panel.Block>
+
+      <Bulma.Panel.Block>
+        <Bulma.Box shadowless>
+          <Bulma.Heading renderAs="h2" size={5}>
+            Prova Real
+          </Bulma.Heading>
         </Bulma.Box>
       </Bulma.Panel.Block>
     </Page>

@@ -1,4 +1,3 @@
-import { number } from "prop-types";
 import create from "zustand";
 import { Product } from "../../domain";
 

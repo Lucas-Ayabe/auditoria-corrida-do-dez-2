@@ -1,4 +1,10 @@
 import { Percentage } from "./value-objects";
+import { Money } from "./value-objects/money";
+
+export interface VarlfReport {
+  total: Money;
+  details: { value: Money; year: number }[];
+}
 
 export const varlf = (
   contributionMarginIndex: Percentage,

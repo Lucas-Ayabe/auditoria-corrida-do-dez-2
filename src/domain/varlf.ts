@@ -20,7 +20,7 @@ export const varlf = (
 };
 
 export const portionOfDeprecation = (totalVarlf: number) => {
-  return new Percentage(15).of(totalVarlf);
+  return Math.round(new Percentage(15).of(totalVarlf));
 };
 
 export const deprecationPercentage = (time: number) => {

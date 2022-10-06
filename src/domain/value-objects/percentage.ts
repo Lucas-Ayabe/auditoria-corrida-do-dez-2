@@ -12,4 +12,8 @@ export class Percentage {
 
     return this.value / 100;
   }
+
+  toString() {
+    return `${this.value}%`;
+  }
 }

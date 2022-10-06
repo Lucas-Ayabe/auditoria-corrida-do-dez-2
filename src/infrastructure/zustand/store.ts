@@ -15,6 +15,8 @@ export interface StoreState {
   products: Product[];
   addProduct: (product: Product) => void;
   deleteProduct: (index: number) => void;
+  updateExpanse: (name: keyof StoreState["expenses"], value: number) => void;
+  updateTaxes: (taxes: number) => void;
 }
 
 export const useStore = create<StoreState>((set) => ({
@@ -38,6 +40,18 @@ export const useStore = create<StoreState>((set) => ({
       producedQuantity: 350,
     },
   ],
+  updateExpanse: (name: keyof StoreState["expenses"], value: number) => {
+    return set((state) => ({
+      ...state,
+      expenses: { ...state.expenses, [name]: value },
+    }));
+  },
+  updateTaxes: (taxes: number) => {
+    return set((state) => ({
+      ...state,
+      taxes: { total: taxes },
+    }));
+  },
   addProduct: (product: Product) => {
     return set((state) => ({
       ...state,
@@ -51,3 +65,14 @@ export const useStore = create<StoreState>((set) => ({
     }));
   },
 }));
+
+export const useStoreField = (fieldName: keyof StoreState["expenses"]) => {
+  const { updateExpanse, expenses } = useStore();
+
+  return {
+    value: expenses[fieldName],
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => {
+      updateExpanse(fieldName, +event.target.value);
+    },
+  };
+};

@@ -1,13 +1,26 @@
 import * as Bulma from "react-bulma-components";
+import { useNavigate } from "react-router-dom";
 import {
   useDeprecationStore,
+  useInterestStore,
   useVarlfReport,
+  useRealProofReport,
 } from "../../../infrastructure/zustand";
 import { GrossRevenueFields, Page } from "../../components";
 
 export const EquityAdjustment = () => {
+  const navigate = useNavigate();
+
   const deprecationStore = useDeprecationStore();
+  const interestStore = useInterestStore();
+
   const varlfReport = useVarlfReport();
+  const realProofReport = useRealProofReport();
+
+  const useTotalInInterest = () => {
+    interestStore.updateCapital(varlfReport.total.toNumber());
+    navigate("/interest");
+  };
 
   return (
     <Page title="Sistema de Ajuste Patrimonial">
@@ -116,14 +129,53 @@ export const EquityAdjustment = () => {
               </tfoot>
             </Bulma.Table>
           </Bulma.Table.Container>
+
+          <Bulma.Button onClick={useTotalInInterest}>
+            Usar em Juros
+          </Bulma.Button>
         </Bulma.Box>
       </Bulma.Panel.Block>
 
       <Bulma.Panel.Block>
-        <Bulma.Box shadowless>
+        <Bulma.Box shadowless style={{ width: "100%" }}>
           <Bulma.Heading renderAs="h2" size={5}>
             Prova Real
           </Bulma.Heading>
+
+          <Bulma.Panel.Block
+            style={{ display: "flex", justifyContent: "space-between" }}
+          >
+            <span>
+              Com porcentagem ({realProofReport.deprecationPercentage}):
+            </span>{" "}
+            <span>
+              {realProofReport.results.withDeprecationPercentage.toString()}
+            </span>
+          </Bulma.Panel.Block>
+          <Bulma.Panel.Block
+            style={{ display: "flex", justifyContent: "space-between" }}
+          >
+            <span>Mensal:</span>
+            <span>{realProofReport.results.perMonth.toString()}</span>
+          </Bulma.Panel.Block>
+          <Bulma.Panel.Block
+            style={{ display: "flex", justifyContent: "space-between" }}
+          >
+            <span>Parcela:</span>
+            <span>{realProofReport.results.portion.toString()}</span>
+          </Bulma.Panel.Block>
+          <Bulma.Panel.Block
+            style={{ display: "flex", justifyContent: "space-between" }}
+          >
+            <span>Parcela Final: </span>
+            <span>{realProofReport.results.lastPortion.toString()}</span>
+          </Bulma.Panel.Block>
+          <Bulma.Panel.Block
+            style={{ display: "flex", justifyContent: "space-between" }}
+          >
+            <span>Total:</span>
+            <span>{realProofReport.results.total.toString()}</span>
+          </Bulma.Panel.Block>
         </Bulma.Box>
       </Bulma.Panel.Block>
     </Page>

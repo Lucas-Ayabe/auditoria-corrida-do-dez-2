@@ -1,6 +1,6 @@
 import create from "zustand";
 
-export interface StoreState {
+export interface DeprecationStoreState {
   contributionMarginIndex: number;
   charges: number;
   grossRevenues: string[];
@@ -11,7 +11,7 @@ export interface StoreState {
   deleteGrossRevenue: (index: number) => void;
 }
 
-export const useDeprecationStore = create<StoreState>((set) => ({
+export const useDeprecationStore = create<DeprecationStoreState>((set) => ({
   contributionMarginIndex: 12,
   charges: 30,
   grossRevenues: ["400000", "350000", "280000", "200000"],

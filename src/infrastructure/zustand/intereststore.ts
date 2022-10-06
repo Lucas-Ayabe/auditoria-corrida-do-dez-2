@@ -1,6 +1,6 @@
 import create from "zustand";
 
-export interface StoreState {
+export interface InterestStoreState {
   capital: number;
   taxOfInterest: number;
   taxOfDF: number;
@@ -11,7 +11,7 @@ export interface StoreState {
   updateDays: (days: number) => void;
 }
 
-export const useInterestStore = create<StoreState>((set) => ({
+export const useInterestStore = create<InterestStoreState>((set) => ({
   capital: 600000,
   taxOfDF: 2,
   taxOfInterest: 6,

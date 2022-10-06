@@ -30,6 +30,10 @@ export const Layout = ({ children }: LayoutProps) => {
                   to: "/ajuste-patrimonial",
                   content: "Ajuste Patrimonial",
                 },
+                {
+                  to:"/interest",
+                  content:"Juros"
+                }
               ]}
             />
           </Bulma.Section>

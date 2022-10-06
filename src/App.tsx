@@ -21,6 +21,10 @@ function App() {
             path="/ajuste-patrimonial"
             element={<Pages.EquityAdjustment />}
           />
+          <Route
+            path="/interest"
+            element={<Pages.InterestPage/>}
+          />
         </Route>
       </Routes>
     </BrowserRouter>
